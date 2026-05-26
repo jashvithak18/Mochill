@@ -45,6 +45,7 @@ export const setupSockets = (io) => {
 
       // Add user to active café room memory
       activeCafes[roomId][socket.id] = {
+        socketId: socket.id, // Expose socket ID for WebRTC peer signaling
         userId: user._id,
         username: user.username,
         avatar: user.avatar || {},

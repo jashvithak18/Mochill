@@ -120,20 +120,6 @@ export const CafeLounge = () => {
 
     socket.on('room:users', (users) => {
       setActiveUsers(users);
-      
-      // Coordinate proximity voice handshakes
-      users.forEach(peerUser => {
-        if (peerUser.userId !== user._id) {
-          const dx = playerPosRef.current.x - peerUser.x;
-          const dy = playerPosRef.current.y - peerUser.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 120) {
-            // Find socket corresponding to this user
-            // In a mesh RTC, we call initiateHandshake
-          }
-        }
-      });
     });
 
     socket.on('avatar:moved', ({ socketId, userId, x, y, state, tableId }) => {
@@ -185,6 +171,41 @@ export const CafeLounge = () => {
       socket.off('coffee:served');
     };
   }, [socket]);
+
+  // Proximity Voice Handshake and volume scaling loop
+  useEffect(() => {
+    if (!socket || !localStream) return;
+
+    const voiceInterval = setInterval(() => {
+      activeUsers.forEach(peerUser => {
+        if (peerUser.userId !== user._id && peerUser.socketId) {
+          const dx = playerPos.x - peerUser.x;
+          const dy = playerPos.y - peerUser.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 120) {
+            // Walking within 120 pixels triggers automatic spatial voice handshake!
+            initiateHandshake(peerUser.socketId);
+            
+            // Adjust volume based on physical grid proximity
+            const audio = audioElements[peerUser.socketId];
+            if (audio) {
+              const proximityVolume = Math.max(0, 1 - (distance / 150));
+              audio.volume = proximityVolume * soundVolume; // Scale with user master volume
+            }
+          } else {
+            // Fade out audio if players walk far apart
+            const audio = audioElements[peerUser.socketId];
+            if (audio) {
+              audio.volume = 0;
+            }
+          }
+        }
+      });
+    }, 1500);
+
+    return () => clearInterval(voiceInterval);
+  }, [activeUsers, playerPos, localStream, socket, audioElements, soundVolume]);
 
   // 3. BACKGROUND CANVAS RENDERING (Cozy wood boards, sparks, weather)
   useEffect(() => {
