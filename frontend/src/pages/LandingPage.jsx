@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Coffee, Music, Users, Compass, ShieldAlert, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { Coffee, Music, Users, Compass, ShieldAlert, Sparkles } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,10 +11,6 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const particleCanvasRef = useRef(null);
-  
-  // Ambient Sound ref
-  const ambientAudioRef = useRef(null);
-  const [ambientPlaying, setAmbientPlaying] = useState(false);
 
   // 1. Particle Canvas simulation (Warm sunlight dust motes)
   useEffect(() => {
@@ -121,18 +117,6 @@ export const LandingPage = () => {
     });
   }, []);
 
-  const handleAmbientPlay = () => {
-    if (!ambientAudioRef.current) return;
-    
-    if (ambientPlaying) {
-      ambientAudioRef.current.pause();
-      setAmbientPlaying(false);
-    } else {
-      ambientAudioRef.current.play().catch(() => {});
-      setAmbientPlaying(true);
-    }
-  };
-
   const handleEnter = () => {
     if (isAuthenticated) {
       navigate('/dashboard');
@@ -144,31 +128,6 @@ export const LandingPage = () => {
   return (
     <div className="min-h-screen relative flex flex-col overflow-x-hidden select-none">
       
-      {/* Background music controller HUD */}
-      <div className="fixed top-5 right-5 z-50">
-        <button
-          onClick={handleAmbientPlay}
-          className="flex items-center gap-2 py-2 px-4 rounded-full border border-white/40 glass-panel hover:bg-cream-200 transition-colors btn-bounce text-xs font-bold text-cozy-darkWood shadow-md"
-        >
-          {ambientPlaying ? (
-            <>
-              <Volume2 className="w-4 h-4 text-cozy-terracotta animate-pulse" />
-              <span>Cozy Ambience: On</span>
-            </>
-          ) : (
-            <>
-              <VolumeX className="w-4 h-4 text-cozy-brown" />
-              <span>Play Cozy Ambience</span>
-            </>
-          )}
-        </button>
-        <audio
-          ref={ambientAudioRef}
-          src="https://assets.mixkit.co/active_storage/sfx/2438/2438-84.wav" // Relaxing nature bird soundscape loop
-          loop
-        />
-      </div>
-
       {/* BACKGROUND PARTICLES LAYER */}
       <canvas
         ref={particleCanvasRef}
@@ -257,10 +216,10 @@ export const LandingPage = () => {
             mocha + chill
           </p>
           <h2 className="text-xl md:text-2xl font-bold font-display text-cozy-darkWood/85 mt-2 italic">
-            “Your cozy Ghibli-themed virtual café metaverse”
+            “Where pixel cats rule, lofi beats loop, and coffee is strictly virtual!”
           </h2>
           <p className="text-xs md:text-sm text-cozy-brown font-medium max-w-md mx-auto leading-relaxed mt-2">
-            Step into a peaceful social sanctuary where you can chat, listen to synchronized lo-fi music, play board games, customize avatars, and study together.
+            Step into a magical Ghibli-inspired social playground where you can customize cute sprites, sit at gaming tables to play Chess/Tic-Tac-Toe, doodle on collaborative chalkboards, and chat with nearby chillers. No real-world stress allowed!
           </p>
         </div>
 
@@ -271,7 +230,7 @@ export const LandingPage = () => {
             className="py-4 px-8 bg-cozy-terracotta hover:bg-cozy-terracotta/90 text-white font-extrabold rounded-cozy shadow-cozy hover:shadow-cozy-hover transition-all btn-bounce text-sm flex items-center gap-2 border border-cozy-terracotta/20"
           >
             <span>🛋️</span>
-            <span>Enter Virtual Café</span>
+            <span>Enter Pixel Café</span>
           </button>
           
           <button
@@ -279,7 +238,7 @@ export const LandingPage = () => {
             className="py-4 px-8 bg-white hover:bg-cream-50 text-cozy-darkWood font-extrabold rounded-cozy shadow-cozy hover:shadow-cozy-hover transition-all btn-bounce text-sm flex items-center gap-2 border border-cream-300"
           >
             <span>🔑</span>
-            <span>Create Guest Session</span>
+            <span>Play as Guest</span>
           </button>
         </div>
       </header>
@@ -299,9 +258,9 @@ export const LandingPage = () => {
             <div className="w-10 h-10 bg-cozy-moss/10 text-cozy-moss rounded-full flex items-center justify-center font-bold">
               1
             </div>
-            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Relax & Study Together</h3>
+            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Sip Virtual Matcha & Cozy Study</h3>
             <p className="text-sm text-cozy-brown leading-relaxed">
-              Sit at quiet wooden tables, toggle focus-mode timers, and drink matcha lattes to boost your productivity. View other students' virtual timers and stay motivated together in a peaceful, noise-free sanctuary.
+              Grab a virtual Matcha Latte to activate a glowing, focused golden ring around your avatar! Sit at warm wood study tables with focus timers to supercharge your real-life productivity alongside chilling peers.
             </p>
           </div>
         </section>
@@ -312,9 +271,9 @@ export const LandingPage = () => {
             <div className="w-10 h-10 bg-cozy-terracotta/10 text-cozy-terracotta rounded-full flex items-center justify-center font-bold">
               2
             </div>
-            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Meet New Friends</h3>
+            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Walk Close to Chit-Chat!</h3>
             <p className="text-sm text-cozy-brown leading-relaxed">
-              Equipped with WebRTC proximity spatial audio, you can automatically talk to players who walk near your avatar! Strike up a chat at coffee counters, leave sticky notes inside the community guestbook, or follow chilling peers.
+              Equipped with proximity spatial voice chat, your mic automatically connects when you walk close to someone! Chat at the barista counter, leave a friendly scribble in the global guestbook, or pet the fireplace cat.
             </p>
           </div>
           <div className="story-visual w-full aspect-video md:aspect-[4/3] bg-cozy-sand/20 rounded-cozy border border-cream-300 shadow-cozy flex items-center justify-center text-8xl md:order-1 relative overflow-hidden">
@@ -337,9 +296,9 @@ export const LandingPage = () => {
             <div className="w-10 h-10 bg-cozy-terracotta/10 text-cozy-terracotta rounded-full flex items-center justify-center font-bold">
               3
             </div>
-            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Listen To Live Lo-Fi</h3>
+            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Spins, Loops, & Synced DJ Beats</h3>
             <p className="text-sm text-cozy-brown leading-relaxed">
-              Take control of a synchronized vinyl record player! Queue up your favorite chillhop tracks, vote-skip tracks, and enjoy high-fidelity nature ambient sounds like rainfall, windchimes, and crackling fireplaces that scale with your position.
+              Take turns operating a retro, spinning vinyl record player that is perfectly synchronized for everyone in the room! Mix and match Nature sound levels like cozy raindrops and blazing fireplace crackles.
             </p>
           </div>
         </section>
@@ -350,9 +309,9 @@ export const LandingPage = () => {
             <div className="w-10 h-10 bg-cozy-moss/10 text-cozy-moss rounded-full flex items-center justify-center font-bold">
               4
             </div>
-            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Customize Cozy Avatars</h3>
+            <h3 className="text-3xl font-extrabold font-display text-cozy-darkWood">Adopt a Floating Pet Cloud</h3>
             <p className="text-sm text-cozy-brown leading-relaxed">
-              Design a highly customizable vector avatar. Style hair colors, overalls, wool beanies, wireframe specs, or choose adorable pets (floating shiba, fuzzy cat, smiling cloud) that follow you through the lounge!
+              Choose cute hairstyles, knit beanies, or cozy overalls, and adopt an adorable floating companion—like a smiling cloud, a round orange cat, or a fluffy Shiba Inu that hops behind you as you walk!
             </p>
           </div>
           <div className="story-visual w-full aspect-video md:aspect-[4/3] bg-cozy-beige/40 rounded-cozy border border-cream-300 shadow-cozy flex items-center justify-center text-8xl md:order-1 relative overflow-hidden">

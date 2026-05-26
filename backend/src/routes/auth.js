@@ -44,7 +44,7 @@ router.post('/register', async (req, res) => {
       password: hashedPassword
     });
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id.toString());
 
     // Safe return (no password)
     const userObj = { ...user };
@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id.toString());
 
     res.status(200).json({
       success: true,
@@ -143,7 +143,7 @@ router.post('/guest', async (req, res) => {
       password: hashedPassword
     });
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id.toString());
 
     res.status(201).json({
       success: true,

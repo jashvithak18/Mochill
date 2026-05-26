@@ -17,6 +17,8 @@ import ChessGame from '../components/ChessGame';
 import TicTacToeGame from '../components/TicTacToeGame';
 import DrawingBoard from '../components/DrawingBoard';
 
+const getApiUrl = () => window.location.hostname === 'localhost' ? '' : (import.meta.env.VITE_BACKEND_URL || '');
+
 // Coordinates mapping for lounge objects
 const OBJECTS = {
   barista: { x: 400, y: 110, w: 100, h: 50, label: 'Barista Counter 🍵' },
@@ -90,7 +92,7 @@ export const CafeLounge = () => {
     // Fetch initial chat logs from database
     const fetchChatLogs = async () => {
       try {
-        const response = await fetch(`/api/rooms/${roomId}/messages`);
+        const response = await fetch(`${getApiUrl()}/api/rooms/${roomId}/messages`);
         const data = await response.json();
         if (data.success) {
           setMessages(data.messages);

@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+const getApiUrl = () => window.location.hostname === 'localhost' ? '' : (import.meta.env.VITE_BACKEND_URL || '');
+
 export const useAuthStore = create((set, get) => ({
   user: null,
   token: localStorage.getItem('mochill_token') || null,
@@ -17,7 +19,7 @@ export const useAuthStore = create((set, get) => ({
 
     set({ isLoading: true, error: null });
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(`${getApiUrl()}/api/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -44,7 +46,7 @@ export const useAuthStore = create((set, get) => ({
   register: async (username, email, password) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch(`${getApiUrl()}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
@@ -74,7 +76,7 @@ export const useAuthStore = create((set, get) => ({
   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${getApiUrl()}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -104,7 +106,7 @@ export const useAuthStore = create((set, get) => ({
   guestLogin: async (username) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await fetch('/api/auth/guest', {
+      const response = await fetch(`${getApiUrl()}/api/auth/guest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
@@ -147,7 +149,7 @@ export const useAuthStore = create((set, get) => ({
     if (!token) return { success: false };
 
     try {
-      const response = await fetch('/api/auth/update', {
+      const response = await fetch(`${getApiUrl()}/api/auth/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,8 @@ import { Coffee, Compass, Plus, LogOut, Lock, Edit3, Award, Flame, Coins, Sparkl
 import AvatarPreview from '../components/AvatarPreview';
 import AvatarCreator from '../components/AvatarCreator';
 
+const getApiUrl = () => window.location.hostname === 'localhost' ? '' : (import.meta.env.VITE_BACKEND_URL || '');
+
 export const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -54,7 +56,7 @@ export const Dashboard = () => {
 
     setLoadingRoom(true);
     try {
-      const response = await fetch('/api/rooms', {
+      const response = await fetch(`${getApiUrl()}/api/rooms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

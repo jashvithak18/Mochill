@@ -14,7 +14,9 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     // Only connect if user is authenticated and has token
     if (isAuthenticated && token) {
-      const socketUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : window.location.origin;
+      const devUrl = 'http://localhost:5000';
+      const prodUrl = import.meta.env.VITE_BACKEND_URL || window.location.origin;
+      const socketUrl = window.location.hostname === 'localhost' ? devUrl : prodUrl;
       
       console.log(`🔌 [SocketProvider] Initializing Socket connection to ${socketUrl}...`);
       const newSocket = io(socketUrl, {

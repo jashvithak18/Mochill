@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+const getApiUrl = () => window.location.hostname === 'localhost' ? '' : (import.meta.env.VITE_BACKEND_URL || '');
+
 export const useCafeStore = create((set, get) => ({
   rooms: [],
   activeRoom: null,
@@ -28,7 +30,7 @@ export const useCafeStore = create((set, get) => ({
 
   fetchRooms: async () => {
     try {
-      const res = await fetch('/api/rooms');
+      const res = await fetch(`${getApiUrl()}/api/rooms`);
       const data = await res.json();
       if (data.success) {
         set({ rooms: data.rooms });
