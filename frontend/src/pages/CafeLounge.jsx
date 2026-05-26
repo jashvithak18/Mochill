@@ -249,14 +249,14 @@ export const CafeLounge = () => {
 
       // Draw rain weather lines overlay
       if (weather === 'rain') {
-        ctx.strokeStyle = 'rgba(52, 152, 219, 0.15)';
-        ctx.lineWidth = 1;
-        for (let i = 0; i < 8; i++) {
+        ctx.strokeStyle = 'rgba(74, 144, 226, 0.45)'; // Rich, cozy blue raindrop color
+        ctx.lineWidth = 2.5; // Thicker streaks
+        for (let i = 0; i < 24; i++) { // More raindrops
           ctx.beginPath();
           const rx = Math.random() * canvas.width;
           const ry = Math.random() * canvas.height;
           ctx.moveTo(rx, ry);
-          ctx.lineTo(rx - 4, ry + 22);
+          ctx.lineTo(rx - 3, ry + 18);
           ctx.stroke();
         }
       }
@@ -408,10 +408,12 @@ export const CafeLounge = () => {
       <div
         className="fixed inset-0 pointer-events-none z-40 transition-colors duration-1000"
         style={{
-          backgroundColor: !isDay
-            ? 'rgba(44, 62, 80, 0.12)'
+          backgroundColor: weather === 'rain'
+            ? 'rgba(44, 62, 80, 0.18)' // Cozy slate tint for rain
+            : !isDay
+            ? 'rgba(44, 62, 80, 0.22)' // Deep night
             : weather === 'sunset'
-            ? 'rgba(230, 126, 34, 0.06)'
+            ? 'rgba(230, 126, 34, 0.08)' // Sunset orange
             : 'transparent'
         }}
       />
