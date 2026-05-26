@@ -117,11 +117,15 @@ export const useWebRTC = (roomId, activeUsers, currentUserId) => {
       // Build an audio element dynamically
       const audio = new Audio();
       audio.srcObject = remoteStream;
-      audio.autoplay = true;
       audio.volume = 0.5; // Starts at half volume
       
       audioElements.current[targetSocketId] = audio;
       document.body.appendChild(audio); // Mount audio to DOM
+
+      // Explicitly invoke play with gesture catch to bypass browser autoplay blocks
+      audio.play().catch(err => {
+        console.warn('🔇 [WebRTC Audio] Autoplay blocked. User canvas interaction will trigger play shortly.', err.message);
+      });
     };
 
     return pc;

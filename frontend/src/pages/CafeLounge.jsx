@@ -76,6 +76,7 @@ export const CafeLounge = () => {
   const [speechBubbles, setSpeechBubbles] = useState({}); // { [userId]: { text, expires } }
   const [activeOverlay, setActiveOverlay] = useState(null); // null, 'barista', 'bookshelf'
   const [sparkles, setSparkles] = useState([]); // Array of floating reactions
+  const [showHelp, setShowHelp] = useState(true); // Kid-friendly Lounge Help defaults to true on entry
 
   const canvasRef = useRef(null);
   const playerPosRef = useRef({ x: 200, y: 350 });
@@ -491,6 +492,15 @@ export const CafeLounge = () => {
             <span>🎙️</span>
             <span>{localStream ? 'Mic Active' : 'Mic Off'}</span>
           </button>
+
+          {/* Lounge Onboarding Help Manual */}
+          <button
+            onClick={() => setShowHelp(true)}
+            className="p-1.5 bg-white border border-cream-300 text-cozy-darkWood rounded-md hover:bg-cream-50 btn-bounce"
+            title="Lounge Onboarding Help Manual"
+          >
+            <HelpCircle className="w-4 h-4 text-cozy-terracotta" />
+          </button>
         </div>
       </header>
 
@@ -862,6 +872,74 @@ export const CafeLounge = () => {
           )}
         </div>
       </div>
+
+      {/* KID-FRIENDLY BEGINNER GUIDE MODAL OVERLAY */}
+      {showHelp && (
+        <div className="fixed inset-0 z-50 bg-neutral-900/60 backdrop-blur-sm flex items-center justify-center p-6 select-none">
+          <div className="w-full max-w-lg bg-white border-4 border-cozy-brown/80 rounded-cozy p-6 shadow-2xl relative flex flex-col gap-5 text-left max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center pb-2 border-b border-cream-200">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">📖</span>
+                <h2 className="text-base font-extrabold font-display text-cozy-darkWood">Mochill Café Onboarding Quest</h2>
+              </div>
+              <button
+                onClick={() => setShowHelp(false)}
+                className="py-1 px-4 bg-cozy-terracotta hover:bg-cozy-terracotta/90 text-white font-extrabold rounded-lg text-xs transition-all btn-bounce shadow-sm"
+              >
+                Let's Play! 🛋️
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4 text-xs font-semibold text-cozy-brown leading-relaxed">
+              
+              <div className="flex items-start gap-3 bg-cream-100 p-3 rounded-lg border border-cream-300/30">
+                <span className="text-xl">🎮</span>
+                <div>
+                  <h4 className="font-extrabold text-cozy-darkWood text-xs">How to Walk Around</h4>
+                  <p className="text-[11px] mt-0.5">Simply **click anywhere on the floorboards**! Your Ghibli sprite avatar will smoothly walk directly towards your cursor. Click near tables to seat yourself.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 bg-cream-100 p-3 rounded-lg border border-cream-300/30">
+                <span className="text-xl">🎙️</span>
+                <div>
+                  <h4 className="font-extrabold text-cozy-darkWood text-xs">Proximity Spatial Voice Chat Rules</h4>
+                  <p className="text-[11px] mt-0.5">Walk within **`120 pixels`** of your friend's avatar to auto-connect! ⚠️ **SECURITY KEY**: To enable microphones, both you and your friend **must use the secure HTTPS link**: `https://mochill.onrender.com`. Insecure `http` connections block mic hardware access instantly.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 bg-cream-100 p-3 rounded-lg border border-cream-300/30">
+                <span className="text-xl">🍵</span>
+                <div>
+                  <h4 className="font-extrabold text-cozy-darkWood text-xs">Virtual Barista Counter</h4>
+                  <p className="text-[11px] mt-0.5">Click on the Barista or the menu. Spend your coins to order beverages (Matcha focus halos, Espresso speed boosts) and earn **XP points** for your profile.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 bg-cream-100 p-3 rounded-lg border border-cream-300/30">
+                <span className="text-xl">🏆</span>
+                <div>
+                  <h4 className="font-extrabold text-cozy-darkWood text-xs">Seating & Table Minigames</h4>
+                  <p className="text-[11px] mt-0.5">Click on labeled game tables to seat yourself. Challenges include real-time **Chess matches**, **Tic-Tac-Toe**, or drawing collaboratively on the **blackboard**!</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 bg-cream-100 p-3 rounded-lg border border-cream-300/30">
+                <span className="text-xl">🐱</span>
+                <div>
+                  <h4 className="font-extrabold text-cozy-darkWood text-xs">Curled Fireplace Cat (Easter Egg)</h4>
+                  <p className="text-[11px] mt-0.5">Pet the cat near the crackling fireplace by clicking it. It meows, sparks a *“Purr~ 💖”* tag, and rewards you with **`2 Coins`**!</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="text-[10px] text-center text-cozy-brown/80 font-bold uppercase tracking-wider border-t border-cream-200 pt-3">
+              ✨ Welcome to the most relaxing metaverse on the internet!
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
