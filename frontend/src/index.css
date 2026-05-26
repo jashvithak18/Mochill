@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream-100 text-cozy-darkWood font-cozy antialiased overflow-x-hidden;
+    background-image: radial-gradient(rgba(141, 123, 104, 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+}
+
+/* Glassmorphism UI panel */
+.glass-panel {
+  background: rgba(250, 246, 240, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-panel-dark {
+  background: rgba(74, 62, 61, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cozy Rounded Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF6F0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C87A53;
+  border-radius: 10px;
+  border: 2px solid #FAF6F0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8D7B68;
+}
+
+/* Custom Interactive Animations */
+.btn-bounce {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-bounce:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.btn-bounce:active {
+  transform: scale(0.98) translateY(0);
+}
+
+/* Custom 2.5D Isometric Grid Styling */
+.isometric-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Animated Speech Bubbles for Avatars */
+.speech-bubble {
+  position: relative;
+  background: #FAF8F5;
+  border: 2px solid #8D7B68;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(141, 123, 104, 0.15);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: #FAF8F5 transparent;
+  display: block;
+  width: 0;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 9px 9px 0;
+  border-style: solid;
+  border-color: #8D7B68 transparent;
+  display: block;
+  width: 0;
+  z-index: -1;
+}
+
+/* Steaming coffee cup SVG path custom style */
+.coffee-steam-path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: steamRise 3s linear infinite;
+}
+
+@keyframes steamRise {
+  to {
+    stroke-dashoffset: -50;
+  }
+}
