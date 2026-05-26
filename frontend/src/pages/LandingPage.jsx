@@ -191,14 +191,60 @@ export const LandingPage = () => {
         <div className="absolute top-36 left-[15%] w-8 h-12 bg-cozy-terracotta/20 rounded-full blur-md animate-float-lantern" style={{ animationDuration: '7s' }} />
         <div className="absolute top-48 right-[18%] w-6 h-10 bg-cozy-sand/30 rounded-full blur-sm animate-float-lantern" style={{ animationDuration: '9s', animationDelay: '2s' }} />
 
-        {/* Steaming Coffee Logo animation */}
-        <div className="relative group">
-          <div className="w-24 h-24 bg-white/70 border border-white rounded-full flex items-center justify-center shadow-cozy relative btn-bounce">
-            <div className="absolute -top-3 left-[32%] flex gap-1 animate-coffee-steam">
-              <svg width="10" height="25" viewBox="0 0 10 25" fill="none"><path d="M 5,22 C 2,16 8,10 5,2" stroke="#8D7B68" strokeWidth="2" strokeLinecap="round" className="coffee-steam-path" /></svg>
-              <svg width="10" height="25" viewBox="0 0 10 25" fill="none"><path d="M 5,22 C 2,16 8,10 5,2" stroke="#8D7B68" strokeWidth="2" strokeLinecap="round" className="coffee-steam-path" style={{ animationDelay: '0.8s' }} /></svg>
+        {/* Stunning Ghibli Animated Window Sill Mock-up */}
+        <div className="relative w-72 h-48 bg-gradient-to-b from-sky-200 to-amber-100 rounded-t-cozy border-4 border-cozy-darkWood shadow-cozy overflow-hidden flex flex-col justify-end select-none group border-b-0">
+          {/* Drifting Clouds outside the window */}
+          <div className="absolute inset-x-0 top-6 overflow-hidden pointer-events-none opacity-40">
+            <svg className="w-[120px] h-[40px] text-white fill-current animate-cloud-move" style={{ animationDuration: '40s' }} viewBox="0 0 100 40">
+              <path d="M10,30 Q15,15 25,25 Q35,10 45,25 Z" />
+            </svg>
+          </div>
+          
+          {/* Sunset Sun */}
+          <div className="absolute top-10 right-10 w-12 h-12 bg-orange-400 rounded-full blur-[2px] opacity-75" />
+
+          {/* Window pane glass partition lines */}
+          <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
+            <div className="border-r-2 border-b-2 border-cozy-darkWood/15" />
+            <div className="border-b-2 border-cozy-darkWood/15" />
+            <div className="border-r-2 border-cozy-darkWood/15" />
+            <div className="border-cozy-darkWood/15" />
+          </div>
+
+          {/* Hanging green ivy vines */}
+          <div className="absolute top-0 left-6 text-xl">🌿</div>
+          <div className="absolute top-0 right-12 text-lg">🌿</div>
+
+          {/* Steaming Mug Sitting on Sill */}
+          <div className="relative flex justify-between items-end px-10 pb-1 z-10">
+            {/* Steaming Mug */}
+            <div className="relative flex flex-col items-center">
+              {/* Steaming paths */}
+              <div className="flex gap-0.5 animate-coffee-steam absolute -top-4 left-2.5">
+                <svg width="6" height="15" viewBox="0 0 10 25" fill="none"><path d="M 5,22 C 2,16 8,10 5,2" stroke="#8D7B68" strokeWidth="2.5" strokeLinecap="round" className="coffee-steam-path" /></svg>
+                <svg width="6" height="15" viewBox="0 0 10 25" fill="none"><path d="M 5,22 C 2,16 8,10 5,2" stroke="#8D7B68" strokeWidth="2.5" strokeLinecap="round" className="coffee-steam-path" style={{ animationDelay: '1s' }} /></svg>
+              </div>
+              
+              {/* Coffee Cup */}
+              <div className="w-8 h-6 bg-cozy-terracotta rounded-b-md border border-cozy-darkWood flex items-center justify-center relative shadow-sm">
+                {/* Handle */}
+                <div className="absolute right-[-4px] top-1 w-2.5 h-3.5 border border-cozy-darkWood border-l-0 rounded-r-full bg-cozy-terracotta" />
+                <span className="text-[7px] text-white/90">☕</span>
+              </div>
             </div>
-            <Coffee className="w-12 h-12 text-cozy-terracotta" />
+
+            {/* Sleeping Cat Curled beside mug */}
+            <div className="flex flex-col items-center animate-pulse" style={{ animationDuration: '3s' }}>
+              <div className="flex items-end select-none">
+                <span className="text-2xl">🐱</span>
+                <span className="text-[8px] font-extrabold text-cozy-brown bg-white/70 py-0.5 px-1 rounded-full scale-75 transform -translate-y-4 translate-x-1 shadow-sm animate-bounce">Zzz</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Wooden Window Sill (Horizontal ledge) */}
+          <div className="w-full h-4 bg-amber-900 border-t-4 border-cozy-darkWood shadow-md shrink-0 relative z-20 flex items-center justify-center">
+            <div className="w-16 h-1 bg-amber-950 rounded-full" />
           </div>
         </div>
 
