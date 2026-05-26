@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 import { connectDB } from './config/db.js';
@@ -46,21 +47,24 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/rooms', roomRoutes);
 
-// Serve compiled static assets from the React dist folder if in production
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.resolve(__dirname, '../../frontend/dist');
+// Define compiled static assets path
+const distPath = path.resolve(__dirname, '../../frontend/dist');
+
+// Serve compiled static assets from the React dist folder if in production or build folder exists
+if (process.env.NODE_ENV === 'production' || fs.existsSync(distPath)) {
   app.use(express.static(distPath));
   
   app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
-  console.log('📦 [Server] Production static file serving enabled.');
+  console.log('📦 [Server] Production static file serving enabled automatically.');
 } else {
   // Health check endpoint
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', time: new Date() });
   });
 }
+
 
 
 // Global Error Handler
