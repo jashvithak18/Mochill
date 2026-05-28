@@ -1,13 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Palette, Eraser, Trash2, X } from 'lucide-react';
 import { useSocket } from '../context/SocketContext';
+import { useCafeStore } from '../store/useCafeStore';
+
+const THEME_BOARD_CONFIG = {
+  tokyo_rain: {
+    name: 'Neon Slate Board',
+    bg: '#121214',
+    titleColor: 'text-emerald-300'
+  },
+  beach_sunset: {
+    name: 'Sand Drawing Board',
+    bg: '#E5C39E',
+    titleColor: 'text-orange-300'
+  },
+  mountain_cabin: {
+    name: 'Log-carved Chalkboard',
+    bg: '#3D271D',
+    titleColor: 'text-amber-300'
+  },
+  library_study: {
+    name: 'Vintage Study Slate',
+    bg: '#1E2522',
+    titleColor: 'text-yellow-300'
+  },
+  fantasy_garden: {
+    name: 'Starry Pixie Canvas',
+    bg: '#241835',
+    titleColor: 'text-fuchsia-300'
+  }
+};
 
 export const DrawingBoard = ({ tableId, onClose }) => {
   const socket = useSocket();
+  const { activeRoom } = useCafeStore();
   const canvasRef = useRef(null);
   const isDrawing = useRef(false);
   const lastX = useRef(0);
   const lastY = useRef(0);
+
+  const theme = activeRoom?.theme || 'tokyo_rain';
+  const boardConf = THEME_BOARD_CONFIG[theme] || THEME_BOARD_CONFIG['tokyo_rain'];
 
   const [color, setColor] = useState('#C87A53'); // Cozy Terracotta by default
   const [brushSize, setBrushSize] = useState(4);
@@ -32,8 +65,8 @@ export const DrawingBoard = ({ tableId, onClose }) => {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Clear board with chalkboard dark green look
-    ctx.fillStyle = '#2C3E50';
+    // Clear board with chalkboard look
+    ctx.fillStyle = boardConf.bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (!socket) return;
@@ -100,7 +133,7 @@ export const DrawingBoard = ({ tableId, onClose }) => {
     const { x, y } = getCanvasCoords(e);
     const ctx = canvas.getContext('2d');
 
-    const drawColor = tool === 'eraser' ? '#2C3E50' : color;
+    const drawColor = tool === 'eraser' ? boardConf.bg : color;
     const drawSize = tool === 'eraser' ? brushSize * 3 : brushSize;
 
     // Draw locally
@@ -141,7 +174,7 @@ export const DrawingBoard = ({ tableId, onClose }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#2C3E50';
+    ctx.fillStyle = boardConf.bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   };
 
@@ -165,7 +198,7 @@ export const DrawingBoard = ({ tableId, onClose }) => {
       <div className="flex justify-between items-center pb-2 border-b border-neutral-800 mb-3">
         <div className="flex items-center gap-2">
           <Palette className="w-4 h-4 text-amber-200" />
-          <h2 className="text-sm font-extrabold font-display text-amber-200">Table {tableId.slice(-1).toUpperCase()} - Cozy Drawing Board</h2>
+          <h2 className={`text-sm font-extrabold font-display ${boardConf.titleColor}`}>Table {tableId.slice(-1).toUpperCase()} - {boardConf.name}</h2>
         </div>
         <button
           onClick={onClose}
@@ -188,7 +221,8 @@ export const DrawingBoard = ({ tableId, onClose }) => {
           onTouchStart={startDrawing}
           onTouchMove={draw}
           onTouchEnd={stopDrawing}
-          className="w-full aspect-[3/2] block bg-[#2C3E50]"
+          className="w-full aspect-[3/2] block"
+          style={{ backgroundColor: boardConf.bg }}
         />
       </div>
 

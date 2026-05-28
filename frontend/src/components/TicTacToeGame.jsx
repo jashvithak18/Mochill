@@ -3,12 +3,58 @@ import { RefreshCw, X as CloseIcon } from 'lucide-react';
 import { useCafeStore } from '../store/useCafeStore';
 import { useSocket } from '../context/SocketContext';
 
+const THEME_TTT_CONFIG = {
+  tokyo_rain: {
+    name: 'Matcha Go Grid',
+    boardStyle: 'bg-emerald-950/20 border-2 border-emerald-800',
+    cellStyle: 'bg-emerald-950/80 hover:bg-emerald-900 border-emerald-850',
+    xColor: 'text-rose-400',
+    oColor: 'text-emerald-400',
+    titleColor: 'text-emerald-300'
+  },
+  beach_sunset: {
+    name: 'Shells Sand Grid',
+    boardStyle: 'bg-orange-950/20 border-2 border-orange-850',
+    cellStyle: 'bg-amber-950/80 hover:bg-orange-900 border-orange-900',
+    xColor: 'text-orange-400',
+    oColor: 'text-cyan-400',
+    titleColor: 'text-orange-300'
+  },
+  mountain_cabin: {
+    name: 'Pinecone Log Grid',
+    boardStyle: 'bg-amber-950/10 border-2 border-amber-900',
+    cellStyle: 'bg-stone-950/80 hover:bg-stone-900 border-stone-850',
+    xColor: 'text-amber-500',
+    oColor: 'text-emerald-500',
+    titleColor: 'text-amber-300'
+  },
+  library_study: {
+    name: 'Ink & Quill Grid',
+    boardStyle: 'bg-neutral-950/40 border-2 border-neutral-850',
+    cellStyle: 'bg-zinc-950/80 hover:bg-zinc-900 border-zinc-850',
+    xColor: 'text-amber-500',
+    oColor: 'text-stone-400',
+    titleColor: 'text-yellow-300'
+  },
+  fantasy_garden: {
+    name: 'Magical Rune Grid',
+    boardStyle: 'bg-purple-950/20 border-2 border-purple-850',
+    cellStyle: 'bg-purple-950/80 hover:bg-purple-900 border-purple-850',
+    xColor: 'text-pink-400',
+    oColor: 'text-cyan-400',
+    titleColor: 'text-fuchsia-300'
+  }
+};
+
 export const TicTacToeGame = ({ tableId, onClose }) => {
   const socket = useSocket();
-  const { gameState, updateGameState } = useCafeStore();
+  const { gameState, updateGameState, activeRoom } = useCafeStore();
   const [board, setBoard] = useState(gameState.board || Array(9).fill(''));
   const [xIsNext, setXIsNext] = useState(gameState.xIsNext !== undefined ? gameState.xIsNext : true);
   const [winner, setWinner] = useState(gameState.winner || null);
+
+  const theme = activeRoom?.theme || 'tokyo_rain';
+  const conf = THEME_TTT_CONFIG[theme] || THEME_TTT_CONFIG['tokyo_rain'];
 
   // Sync board from Zustand
   useEffect(() => {
@@ -121,12 +167,12 @@ export const TicTacToeGame = ({ tableId, onClose }) => {
       <div className="flex justify-between items-center pb-2 border-b border-neutral-800 mb-4">
         <div className="flex items-center gap-2">
           <span className="text-lg">❌</span>
-          <h2 className="text-sm font-extrabold font-display text-amber-200">Table {tableId.slice(-1).toUpperCase()} - Tic-Tac-Toe</h2>
+          <h2 className={`text-sm font-extrabold font-display ${conf.titleColor}`}>Table {tableId.slice(-1).toUpperCase()} - {conf.name}</h2>
         </div>
         <div className="flex gap-2">
           <button
             onClick={handleReset}
-            className="p-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white rounded-md transition-colors"
+            className="p-1 bg-neutral-880 hover:bg-neutral-700 text-neutral-400 hover:text-white rounded-md transition-colors"
             title="Reset Board"
           >
             <RefreshCw className="w-4 h-4" />
@@ -141,7 +187,7 @@ export const TicTacToeGame = ({ tableId, onClose }) => {
       </div>
 
       {/* Game Status */}
-      <div className="mb-4 text-center text-xs font-bold py-1 px-3 bg-neutral-950/60 rounded-full border border-neutral-800/80 w-fit mx-auto text-amber-300">
+      <div className={`mb-4 text-center text-xs font-bold py-1 px-3 bg-neutral-950/60 rounded-full border border-neutral-800/80 w-fit mx-auto ${conf.titleColor}`}>
         {winner
           ? winner === 'Draw'
             ? '🤝 Peaceful Draw!'
@@ -150,13 +196,13 @@ export const TicTacToeGame = ({ tableId, onClose }) => {
       </div>
 
       {/* Chalkboard Grid */}
-      <div className="aspect-square bg-slate-900/40 rounded-lg p-2 border-2 border-neutral-800 flex flex-wrap gap-1">
+      <div className={`aspect-square rounded-lg p-2 flex flex-wrap gap-1 ${conf.boardStyle}`}>
         {board.map((cell, idx) => (
           <button
             key={idx}
             onClick={() => handleCellClick(idx)}
-            className={`w-[31%] h-[31%] bg-neutral-950/80 hover:bg-neutral-950 rounded-md flex items-center justify-center text-4xl font-extrabold transition-all border border-neutral-850 shadow-inner ${
-              cell === 'X' ? 'text-cozy-terracotta' : 'text-cozy-moss'
+            className={`w-[31%] h-[31%] rounded-md flex items-center justify-center text-4xl font-extrabold transition-all border border-neutral-850 shadow-inner ${conf.cellStyle} ${
+              cell === 'X' ? conf.xColor : conf.oColor
             }`}
           >
             <span className="scale-110 drop-shadow-md">{cell}</span>

@@ -15,12 +15,58 @@ const INITIAL_BOARD = [
   ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
 ];
 
+const THEME_CHESS_CONFIG = {
+  tokyo_rain: {
+    name: 'Shogi Chess Board',
+    boardBg: 'bg-emerald-950/20 border-emerald-900/60',
+    lightCell: 'bg-[#E5D3B3] text-amber-950 hover:bg-[#D9C4A2]',
+    darkCell: 'bg-[#6D5A43] text-cream-50 hover:bg-[#5E4C37]',
+    boardBorder: 'border-emerald-950/80',
+    titleColor: 'text-emerald-300'
+  },
+  beach_sunset: {
+    name: 'Sunset Beach Chess',
+    boardBg: 'bg-orange-950/20 border-orange-900/60',
+    lightCell: 'bg-[#FBE7C6] text-amber-950 hover:bg-[#EDD4B1]',
+    darkCell: 'bg-[#B5838D] text-cream-50 hover:bg-[#A3727C]',
+    boardBorder: 'border-orange-950/80',
+    titleColor: 'text-orange-300'
+  },
+  mountain_cabin: {
+    name: 'Lumberjack Cabin Chess',
+    boardBg: 'bg-stone-950/40 border-stone-850/60',
+    lightCell: 'bg-[#D7C49E] text-stone-900 hover:bg-[#C9B58D]',
+    darkCell: 'bg-[#5C4033] text-cream-50 hover:bg-[#4E3428]',
+    boardBorder: 'border-stone-950',
+    titleColor: 'text-amber-300'
+  },
+  library_study: {
+    name: 'Royal Mahogany Chess',
+    boardBg: 'bg-amber-950/30 border-amber-900/60',
+    lightCell: 'bg-[#F5F2EB] text-amber-950 hover:bg-[#E8E4D7]',
+    darkCell: 'bg-[#4E3629] text-cream-50 hover:bg-[#3F2B20]',
+    boardBorder: 'border-amber-950',
+    titleColor: 'text-yellow-300'
+  },
+  fantasy_garden: {
+    name: 'Riddle Crystal Table',
+    boardBg: 'bg-purple-950/30 border-purple-900/60',
+    lightCell: 'bg-[#E8D7F1] text-purple-950 hover:bg-[#D8C4E3]',
+    darkCell: 'bg-[#4A2E80] text-purple-100 hover:bg-[#3B226D]',
+    boardBorder: 'border-purple-950',
+    titleColor: 'text-fuchsia-300'
+  }
+};
+
 export const ChessGame = ({ tableId, onClose }) => {
   const socket = useSocket();
-  const { gameState, updateGameState } = useCafeStore();
+  const { gameState, updateGameState, activeRoom } = useCafeStore();
   const [board, setBoard] = useState(gameState.board || INITIAL_BOARD);
   const [selectedPiece, setSelectedPiece] = useState(null); // { r, c }
   const [turn, setTurn] = useState(gameState.turn || 'white');
+
+  const theme = activeRoom?.theme || 'tokyo_rain';
+  const conf = THEME_CHESS_CONFIG[theme] || THEME_CHESS_CONFIG['tokyo_rain'];
 
   // 1. Sync board from Zustand
   useEffect(() => {
@@ -128,7 +174,7 @@ export const ChessGame = ({ tableId, onClose }) => {
       <div className="flex justify-between items-center pb-2.5 border-b border-neutral-800 mb-4">
         <div className="flex items-center gap-2">
           <span className="text-xl">🏆</span>
-          <h2 className="text-sm font-extrabold font-display text-amber-200">Table {tableId.slice(-1).toUpperCase()} - Cozy Chess</h2>
+          <h2 className={`text-sm font-extrabold font-display ${conf.titleColor}`}>Table {tableId.slice(-1).toUpperCase()} - {conf.name}</h2>
         </div>
         <div className="flex gap-2">
           <button
@@ -148,12 +194,12 @@ export const ChessGame = ({ tableId, onClose }) => {
       </div>
 
       {/* Turn indicator */}
-      <div className="mb-3 text-center text-xs font-bold py-1 px-3 bg-neutral-950/60 rounded-full border border-neutral-800/80 w-fit mx-auto capitalize text-amber-300">
+      <div className={`mb-3 text-center text-xs font-bold py-1 px-3 bg-neutral-950/60 rounded-full border border-neutral-800/80 w-fit mx-auto capitalize ${conf.titleColor}`}>
         Turn: {turn === 'white' ? '⚪ White Chiller' : '⚫ Black Chiller'}
       </div>
 
       {/* Chess Grid Board */}
-      <div className="aspect-square bg-amber-900 rounded-lg p-1.5 border border-amber-950 flex flex-col gap-0.5 shadow-inner">
+      <div className={`aspect-square rounded-lg p-1.5 border flex flex-col gap-0.5 shadow-inner ${conf.boardBg} ${conf.boardBorder}`}>
         {board.map((row, r) => (
           <div key={r} className="flex-1 flex gap-0.5">
             {row.map((cell, c) => {
@@ -168,8 +214,8 @@ export const ChessGame = ({ tableId, onClose }) => {
                     isSelected
                       ? 'bg-amber-400/80 text-amber-950 shadow-inner scale-95 border border-amber-300'
                       : isDark
-                      ? 'bg-amber-950/40 text-cream-50 hover:bg-amber-950/60'
-                      : 'bg-cream-200/90 text-amber-950 hover:bg-cream-200'
+                      ? `${conf.darkCell}`
+                      : `${conf.lightCell}`
                   }`}
                 >
                   <span className="drop-shadow-md">{cell}</span>

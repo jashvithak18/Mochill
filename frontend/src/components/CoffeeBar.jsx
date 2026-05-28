@@ -3,45 +3,186 @@ import { Coffee, Flame, Zap, Award, Sparkles, Check } from 'lucide-react';
 import { useCafeStore } from '../store/useCafeStore';
 import { useSocket } from '../context/SocketContext';
 
-export const CoffeeBar = ({ onClose }) => {
-  const socket = useSocket();
-  const { brewStatus, startBrewing, serveCoffee } = useCafeStore();
-  const [selectedDrink, setSelectedDrink] = useState(null);
-
-  const drinks = [
+const THEME_DRINKS = {
+  tokyo_rain: [
     {
-      name: 'Double Shot Espresso',
+      name: '⚡ Tokyo Volt Espresso',
       icon: '⚡',
-      description: 'Provides physical energy. Speeds up avatar movement speed by 40%!',
+      description: 'Provides high Tokyo volt energy. Speed boost 40%!',
       buffName: 'Energy Speed',
       price: 15,
       color: 'bg-amber-950 text-amber-200'
     },
     {
-      name: 'Matcha Dream Latte',
+      name: '🍵 Uji Matcha Latte',
       icon: '🍵',
-      description: 'Provides focus. Triggers a glowing, focused golden ring around your avatar.',
+      description: 'Provides intense focus. Triggers a glowing, focused matcha halo.',
       buffName: 'Matcha Focus',
       price: 20,
       color: 'bg-emerald-900 text-emerald-100'
     },
     {
-      name: 'Ghibli Hot Chocolate',
+      name: '🍫 Ghibli Cocoa Dream',
       icon: '🍫',
-      description: 'Provides comfort. Emits floating pink hearts from your character.',
+      description: 'Warm comfort. Emits cozy pink Ghibli floating hearts.',
       buffName: 'Cozy Chill',
       price: 10,
       color: 'bg-amber-800 text-amber-100'
     },
     {
-      name: 'Sleepy chamomile Tea',
+      name: '🌼 Lavender Sleep Tea',
       icon: '🌼',
-      description: 'Provides rest. Induces an immediate sleep animation and sleep bubbles.',
+      description: 'Provides deep rest. Triggers an immediate sleep state.',
       buffName: 'Dream Sleep',
       price: 8,
       color: 'bg-yellow-900/40 text-yellow-100 border border-yellow-800'
     }
-  ];
+  ],
+  beach_sunset: [
+    {
+      name: '🥥 Coconut Fuel Shot',
+      icon: '🥥',
+      description: 'Fresh coconut caffeine fuel. Speed boost 40%!',
+      buffName: 'Energy Speed',
+      price: 15,
+      color: 'bg-amber-950 text-amber-200'
+    },
+    {
+      name: '🍹 Mango Sunset Blend',
+      icon: '🍹',
+      description: 'Sweet mango puree focus. Triggers a golden focused ring.',
+      buffName: 'Matcha Focus',
+      price: 20,
+      color: 'bg-orange-900 text-orange-100'
+    },
+    {
+      name: '🍍 Pineapple Piña Colada',
+      icon: '🍍',
+      description: 'Alcohol-free cozy paradise. Emits floating beach hearts.',
+      buffName: 'Cozy Chill',
+      price: 10,
+      color: 'bg-amber-800 text-amber-100'
+    },
+    {
+      name: '🌺 Hibiscus Lagoon Tea',
+      icon: '🌺',
+      description: 'Soothing sunset breeze rest. Triggers an immediate sleep state.',
+      buffName: 'Dream Sleep',
+      price: 8,
+      color: 'bg-rose-900/40 text-rose-100 border border-rose-800'
+    }
+  ],
+  mountain_cabin: [
+    {
+      name: '🪵 Lumberjack Dark Roast',
+      icon: '🪵',
+      description: 'Strong cedar-wood brew. Speed boost 40%!',
+      buffName: 'Energy Speed',
+      price: 15,
+      color: 'bg-amber-950 text-amber-200'
+    },
+    {
+      name: '🍯 Golden Honey Latte',
+      icon: '🍯',
+      description: 'Wild cabin honey focus. Triggers a golden focused halo.',
+      buffName: 'Matcha Focus',
+      price: 20,
+      color: 'bg-amber-900 text-amber-100'
+    },
+    {
+      name: '🍎 Spiced Hot Cider',
+      icon: '🍎',
+      description: 'Warm cinnamon comfort. Emits warm cozy hearts.',
+      buffName: 'Cozy Chill',
+      price: 10,
+      color: 'bg-amber-800 text-amber-100'
+    },
+    {
+      name: '🌲 Alpine Pinecone Tea',
+      icon: '🌲',
+      description: 'Relaxing forest herbal rest. Triggers an immediate sleep state.',
+      buffName: 'Dream Sleep',
+      price: 8,
+      color: 'bg-emerald-900/40 text-emerald-100 border border-emerald-800'
+    }
+  ],
+  library_study: [
+    {
+      name: '✒️ Midnight Ink Espresso',
+      icon: '✒️',
+      description: 'Midnight exam studying fuel. Speed boost 40%!',
+      buffName: 'Energy Speed',
+      price: 15,
+      color: 'bg-stone-950 text-stone-200'
+    },
+    {
+      name: '☕ Professor’s Black Tea',
+      icon: '☕',
+      description: 'Philosopher’s high focus. Triggers a glowing focus ring.',
+      buffName: 'Matcha Focus',
+      price: 20,
+      color: 'bg-stone-900 text-stone-100'
+    },
+    {
+      name: '🍫 Gutenberg Cocoa',
+      icon: '🍫',
+      description: 'Classic ancient chocolate. Emits classical cozy hearts.',
+      buffName: 'Cozy Chill',
+      price: 10,
+      color: 'bg-amber-950/60 text-amber-100 border border-amber-800'
+    },
+    {
+      name: '🌼 Sleepy Archives Herbal',
+      icon: '🌼',
+      description: 'Late-night library rest tea. Triggers an immediate sleep state.',
+      buffName: 'Dream Sleep',
+      price: 8,
+      color: 'bg-yellow-900/40 text-yellow-100 border border-yellow-800'
+    }
+  ],
+  fantasy_garden: [
+    {
+      name: '⚡ Lightning Sprite Elixir',
+      icon: '⚡',
+      description: 'Infused with lightning sprites. Speed boost 40%!',
+      buffName: 'Energy Speed',
+      price: 15,
+      color: 'bg-purple-950 text-purple-200'
+    },
+    {
+      name: '🌸 Pixie Petal Latte',
+      icon: '🌸',
+      description: 'Formed from magical fairy petals. Triggers a neon focus ring.',
+      buffName: 'Matcha Focus',
+      price: 20,
+      color: 'bg-violet-900 text-violet-100'
+    },
+    {
+      name: '🔮 Starry Night Cocoa',
+      icon: '🔮',
+      description: 'Starlight and cosmos comfort. Emits magical glowing hearts.',
+      buffName: 'Cozy Chill',
+      price: 10,
+      color: 'bg-indigo-950 text-indigo-200'
+    },
+    {
+      name: '🍄 Moonlit Spore Tea',
+      icon: '🍄',
+      description: 'Hypnotic woodland glowing rest. Triggers an immediate sleep state.',
+      buffName: 'Dream Sleep',
+      price: 8,
+      color: 'bg-fuchsia-950/40 text-fuchsia-100 border border-fuchsia-800'
+    }
+  ]
+};
+
+export const CoffeeBar = ({ onClose }) => {
+  const socket = useSocket();
+  const { brewStatus, startBrewing, serveCoffee, activeRoom } = useCafeStore();
+  const [selectedDrink, setSelectedDrink] = useState(null);
+
+  const theme = activeRoom?.theme || 'tokyo_rain';
+  const drinks = THEME_DRINKS[theme] || THEME_DRINKS['tokyo_rain'];
 
   const handleOrder = (drink) => {
     if (brewStatus === 'brewing') return;
