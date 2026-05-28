@@ -29,6 +29,79 @@ const OBJECTS = {
   tableTicTacToe: { x: 400, y: 380, w: 50, h: 50, label: 'TicTacToe ❌', game: 'tictactoe', id: 'tab_ttt' }
 };
 
+const THEME_DECOR = {
+  tokyo_rain: {
+    fireplace: { emoji: '🏮', label: 'Kotatsu Heater', title: 'Stoke/cool your warm Kotatsu', labelBg: 'bg-rose-950/80 text-rose-300' },
+    barista: { emoji: '🍵', label: 'Matcha Bar', style: 'bg-emerald-950/10 border-emerald-800/20 hover:bg-emerald-900/20 text-emerald-800' },
+    bookshelf: { emoji: '📚', label: 'Manga Shelf', style: 'bg-teal-950/10 border-teal-800/20 hover:bg-teal-900/20 text-teal-800' },
+    tableChess: { emoji: '♟️', label: 'Shogi Board', style: 'bg-neutral-950/10 border-neutral-800/20 hover:bg-neutral-900/20 text-neutral-800' },
+    tableWhiteboard: { emoji: '🎨', label: 'Neon Slate', style: 'bg-indigo-950/10 border-indigo-800/20 hover:bg-indigo-900/20 text-indigo-800' },
+    tableTicTacToe: { emoji: '❌', label: 'Matcha Grid', style: 'bg-green-950/10 border-green-800/20 hover:bg-green-900/20 text-green-800' },
+    cat: { emoji: '🐱', label: 'Sleeping Calico', purr: 'Meow~ 🌸' },
+    bookshelfOverlay: {
+      title: '☔ Tokyo Manga Corner',
+      quote: '"The sound of rain outside makes the warm green tea taste even sweeter."',
+      affirmation: '📘 Zen Note: Enjoy the cozy sound of lofi beats and rain. You are exactly where you need to be. Let your mind rest.'
+    }
+  },
+  beach_sunset: {
+    fireplace: { emoji: '🔥', label: 'Tiki Bonfire', title: 'Light/extinguish the Bonfire', labelBg: 'bg-orange-950/80 text-orange-300' },
+    barista: { emoji: '🍹', label: 'Tiki Juice Bar', style: 'bg-orange-950/10 border-orange-800/20 hover:bg-orange-900/20 text-orange-800' },
+    bookshelf: { emoji: '🐚', label: 'Surfboard Rack', style: 'bg-amber-950/10 border-amber-800/20 hover:bg-amber-900/20 text-amber-800' },
+    tableChess: { emoji: '🏖️', label: 'Sand Chess', style: 'bg-yellow-950/10 border-yellow-800/20 hover:bg-yellow-900/20 text-yellow-800' },
+    tableWhiteboard: { emoji: '🌊', label: 'Sand Canvas', style: 'bg-cyan-950/10 border-cyan-800/20 hover:bg-cyan-900/20 text-cyan-800' },
+    tableTicTacToe: { emoji: '🐚', label: 'Shells Grid', style: 'bg-amber-950/10 border-amber-800/20 hover:bg-amber-900/20 text-amber-800' },
+    cat: { emoji: '🦀', label: 'Sunny Crab', purr: 'Snip-snap! 🦀' },
+    bookshelfOverlay: {
+      title: '🐚 Sunset Travel Log',
+      quote: '"Write your worries in the sand and let the waves wash them away."',
+      affirmation: '🌊 Tidal Note: You are flowing beautifully, like the tides. Give yourself permission to bask in the warm twilight.'
+    }
+  },
+  mountain_cabin: {
+    fireplace: { emoji: '🪵', label: 'Roaring Hearth', title: 'Stoke the rustic Woodstove', labelBg: 'bg-amber-950/80 text-amber-300' },
+    barista: { emoji: '🍎', label: 'Warm Cider Bar', style: 'bg-amber-950/20 border-amber-800/30 hover:bg-amber-900/30 text-amber-900' },
+    bookshelf: { emoji: '🪵', label: 'Log Library', style: 'bg-stone-950/20 border-stone-800/30 hover:bg-stone-900/30 text-stone-950' },
+    tableChess: { emoji: '♟️', label: 'Cabin Chess', style: 'bg-amber-950/15 border-amber-800/20 hover:bg-amber-900/20 text-amber-900' },
+    tableWhiteboard: { emoji: '✏️', label: 'Cabin Board', style: 'bg-stone-950/15 border-stone-850/20 hover:bg-stone-900/20 text-stone-800' },
+    tableTicTacToe: { emoji: '🌲', label: 'Pine Grid', style: 'bg-emerald-950/15 border-emerald-850/20 hover:bg-emerald-900/20 text-emerald-900' },
+    cat: { emoji: '🐕', label: 'Cozy Husky', purr: 'Awoo~ ❄️' },
+    bookshelfOverlay: {
+      title: '🪵 Cabin Log Book',
+      quote: '"In the silence of the snow, the warmth of the fire speaks louder."',
+      affirmation: '🌲 Forest Note: Take a moment to disconnect from the noise of the busy world. Breathe in the crisp mountain air. You are safe and warm here.'
+    }
+  },
+  library_study: {
+    fireplace: { emoji: '🔥', label: 'Study Hearth', title: 'Stoke the vintage fireplace', labelBg: 'bg-yellow-950/80 text-yellow-300' },
+    barista: { emoji: '☕', label: 'Bookstore Café', style: 'bg-yellow-950/10 border-yellow-800/20 hover:bg-yellow-900/20 text-yellow-900' },
+    bookshelf: { emoji: '📖', label: 'Grand Archive', style: 'bg-stone-950/10 border-stone-800/20 hover:bg-stone-900/30 text-stone-900' },
+    tableChess: { emoji: '👑', label: 'Royal Chess', style: 'bg-amber-950/10 border-amber-800/20 hover:bg-amber-900/20 text-amber-955' },
+    tableWhiteboard: { emoji: '📝', label: 'Study Slate', style: 'bg-stone-950/10 border-stone-800/20 hover:bg-stone-900/20 text-stone-800' },
+    tableTicTacToe: { emoji: '✒️', label: 'Quill Grid', style: 'bg-zinc-950/10 border-zinc-800/20 hover:bg-zinc-900/20 text-zinc-800' },
+    cat: { emoji: '🦉', label: 'Professor Owl', purr: 'Hoot-hoot! 🦉' },
+    bookshelfOverlay: {
+      title: "📖 Scholar's Parchment",
+      quote: '"An investment in knowledge always pays the best interest."',
+      affirmation: '✏️ Study Note: Every small page read, every formula understood, brings you closer to your dreams. Keep learning at your own cozy pace.'
+    }
+  },
+  fantasy_garden: {
+    fireplace: { emoji: '🧪', label: 'Fairy Cauldron', title: 'Stoke the magic Cauldron', labelBg: 'bg-purple-950/80 text-purple-300' },
+    barista: { emoji: '🌸', label: 'Nectar Brewery', style: 'bg-fuchsia-950/10 border-fuchsia-800/20 hover:bg-fuchsia-900/20 text-fuchsia-800' },
+    bookshelf: { emoji: '✨', label: 'Spellbook Arch', style: 'bg-violet-950/10 border-violet-800/20 hover:bg-violet-900/20 text-violet-800' },
+    tableChess: { emoji: '🔮', label: 'Riddle Table', style: 'bg-purple-950/10 border-purple-800/20 hover:bg-purple-900/20 text-purple-800' },
+    tableWhiteboard: { emoji: '🪄', label: 'Pixie Slate', style: 'bg-pink-950/10 border-pink-800/30 hover:bg-pink-900/20 text-pink-800' },
+    tableTicTacToe: { emoji: '🌀', label: 'Rune Grid', style: 'bg-indigo-950/10 border-indigo-800/20 hover:bg-indigo-900/20 text-indigo-800' },
+    cat: { emoji: '🦄', label: 'Pegasus Foal', purr: 'Neigh! ✨' },
+    bookshelfOverlay: {
+      title: '✨ Pixie Grimoire',
+      quote: '"Magic happens when you believe in your own power and trust the universe."',
+      affirmation: '🌸 Garden Note: You are a magical creature filled with light and potential. Let your dreams wander in this starry grove today.'
+    }
+  }
+};
+
 export const CafeLounge = () => {
   const { id: roomId } = useParams();
   const navigate = useNavigate();
@@ -78,6 +151,9 @@ export const CafeLounge = () => {
   const [sparkles, setSparkles] = useState([]); // Array of floating reactions
   const [showHelp, setShowHelp] = useState(true); // Kid-friendly Lounge Help defaults to true on entry
 
+  const theme = activeRoom?.theme || 'tokyo_rain';
+  const decor = THEME_DECOR[theme] || THEME_DECOR['tokyo_rain'];
+
   const canvasRef = useRef(null);
   const playerPosRef = useRef({ x: 200, y: 350 });
   const animationFrameId = useRef(null);
@@ -101,6 +177,24 @@ export const CafeLounge = () => {
       } catch (err) {}
     };
     fetchChatLogs();
+
+    // Fetch room details to restore session on page refresh
+    const fetchRoomDetails = async () => {
+      try {
+        const response = await fetch(`${getApiUrl()}/api/rooms/${roomId}`);
+        const data = await response.json();
+        if (data.success) {
+          setActiveRoom(data.room);
+          
+          // Auto-sync initial weather loops based on theme settings
+          if (data.room.theme === 'tokyo_rain') setWeather('rain');
+          else if (data.room.theme === 'mountain_cabin') setWeather('snow');
+          else if (data.room.theme === 'beach_sunset') setWeather('sunset');
+          else setWeather('clear');
+        }
+      } catch (err) {}
+    };
+    fetchRoomDetails();
 
     // Trigger join
     socket.emit('room:join', { roomId, user });
@@ -228,12 +322,31 @@ export const CafeLounge = () => {
     const drawGrid = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Floor shade: soft light Ghibli cream-yellow wood floorboards
-      ctx.fillStyle = isDay ? '#FDFBF7' : '#FAF4EB';
+      const theme = activeRoom?.theme || 'tokyo_rain';
+
+      // 1. DYNAMIC FLOOR STYLING BY SELECTED THEME
+      let floorColor = isDay ? '#FDFBF7' : '#FAF4EB';
+      let plankColor = 'rgba(141,123,104,0.08)';
+
+      if (theme === 'beach_sunset') {
+        floorColor = '#F5E6CA'; // warm sand beige
+        plankColor = 'rgba(200,122,83,0.12)';
+      } else if (theme === 'mountain_cabin') {
+        floorColor = '#5C4033'; // deep cozy dark cedar wood
+        plankColor = 'rgba(255,255,255,0.06)';
+      } else if (theme === 'library_study') {
+        floorColor = '#FAF0E6'; // vintage oak parchment
+        plankColor = 'rgba(139,90,43,0.08)';
+      } else if (theme === 'fantasy_garden') {
+        floorColor = '#FAF0F6'; // magical pastel pink-purple
+        plankColor = 'rgba(186,85,211,0.08)';
+      }
+
+      ctx.fillStyle = floorColor;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Horizontal wood planks lines
-      ctx.strokeStyle = 'rgba(141,123,104,0.08)';
+      ctx.strokeStyle = plankColor;
       ctx.lineWidth = 2.5;
       for (let i = 0; i < canvas.height; i += 30) {
         ctx.beginPath();
@@ -242,20 +355,106 @@ export const CafeLounge = () => {
         ctx.stroke();
       }
 
-      // Draw cozy fireplace embers
+      // 2. DYNAMIC DECOR ACCENTS BY THEME
+      if (theme === 'beach_sunset') {
+        // Draw glowing sunset sun arc at the top margin
+        ctx.fillStyle = 'rgba(231, 76, 60, 0.08)';
+        ctx.beginPath();
+        ctx.arc(400, 0, 100, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = 'rgba(241, 196, 15, 0.04)';
+        ctx.beginPath();
+        ctx.arc(400, 0, 160, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (theme === 'library_study') {
+        // Draw warm sunbeams streaming from top-left
+        ctx.fillStyle = 'rgba(244, 234, 224, 0.1)';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(150, 0);
+        ctx.lineTo(800, 320);
+        ctx.lineTo(800, 500);
+        ctx.lineTo(0, 500);
+        ctx.closePath();
+        ctx.fill();
+      } else if (theme === 'fantasy_garden') {
+        // Draw magical golden fairy dust spores
+        for (let i = 0; i < 15; i++) {
+          ctx.fillStyle = `rgba(254, 241, 96, ${Math.random() * 0.4 + 0.15})`;
+          ctx.beginPath();
+          const rx = Math.random() * canvas.width;
+          const ry = Math.random() * canvas.height;
+          ctx.arc(rx, ry, Math.random() * 2 + 1, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // 3. WEATHER RENDERING
+      if (weather === 'rain') {
+        ctx.strokeStyle = 'rgba(74, 144, 226, 0.45)'; // Rich, cozy blue raindrop color
+        ctx.lineWidth = 2.5; // Thicker streaks
+        for (let i = 0; i < 24; i++) { // More raindrops
+          ctx.beginPath();
+          const rx = Math.random() * canvas.width;
+          const ry = Math.random() * canvas.height;
+          ctx.moveTo(rx, ry);
+          ctx.lineTo(rx - 3, ry + 18);
+          ctx.stroke();
+        }
+      } else if (weather === 'snow' || (theme === 'mountain_cabin' && weather === 'clear')) {
+        // Draw falling snow particles overlay
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        for (let i = 0; i < 16; i++) {
+          ctx.beginPath();
+          const rx = Math.random() * canvas.width;
+          const ry = Math.random() * canvas.height;
+          ctx.arc(rx, ry, Math.random() * 2.5 + 0.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // 4. FIREPLACE EMBERS
       if (fireplaceOn) {
-        // Draw wood logs
-        ctx.fillStyle = '#5A3825';
+        let logColor = '#5A3825';
+        let fireColor = '#E67E22';
+        let emberColor = '231, 76, 60'; // Red/orange default
+
+        if (theme === 'beach_sunset') {
+          logColor = '#8E4A21'; // lighter sandy logs
+          fireColor = '#E67E22';
+          emberColor = '241, 196, 15'; // bright yellow embers
+        } else if (theme === 'mountain_cabin') {
+          logColor = '#3E2723'; // very dark cabin wood logs
+          fireColor = '#D35400'; // dark hot orange
+          emberColor = '230, 126, 34';
+        } else if (theme === 'library_study') {
+          logColor = '#4E3629';
+          fireColor = '#F39C12'; // bright steady gold
+          emberColor = '243, 156, 18';
+        } else if (theme === 'fantasy_garden') {
+          logColor = '#2C3E50'; // magical crystal logs/stones
+          fireColor = '#9B59B6'; // magical purple flame/cauldron glow
+          emberColor = '155, 89, 182'; // purple magical bubbles
+        } else if (theme === 'tokyo_rain') {
+          logColor = '#4A3E3D';
+          fireColor = '#E74C3C'; // bright red Tokyo kotatsu heater grill glow
+          emberColor = '241, 196, 15';
+        }
+
+        // Draw log wood base or heater grid
+        ctx.fillStyle = logColor;
         ctx.fillRect(OBJECTS.fireplace.x + 22, OBJECTS.fireplace.y + 42, 36, 8);
 
-        ctx.fillStyle = '#E67E22';
+        // Draw flame/glowing core
+        ctx.fillStyle = fireColor;
         ctx.beginPath();
         ctx.arc(OBJECTS.fireplace.x + 40, OBJECTS.fireplace.y + 40, 18, 0, Math.PI, true);
         ctx.fill();
 
-        // Animate floating red fire embers sparks
+        // Animate floating sparks / embers / bubbles
         embers.forEach(e => {
-          ctx.fillStyle = `rgba(231, 76, 60, ${e.o})`;
+          ctx.fillStyle = `rgba(${emberColor}, ${e.o})`;
           ctx.beginPath();
           ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
           ctx.fill();
@@ -290,7 +489,7 @@ export const CafeLounge = () => {
     return () => {
       cancelAnimationFrame(sparkFrame);
     };
-  }, [isDay, weather, fireplaceOn]);
+  }, [isDay, weather, fireplaceOn, activeRoom]);
 
   // 4. TICK WALK interpolation LERP loops
   useEffect(() => {
@@ -532,11 +731,11 @@ export const CafeLounge = () => {
                 width: `${(OBJECTS.fireplace.w / 800) * 100}%`,
                 height: `${(OBJECTS.fireplace.h / 500) * 100}%`
               }}
-              title="Click to stoke/extinguish Fire"
+              title={decor.fireplace.title}
             >
               <div className="w-full h-full border border-orange-500/10 flex items-end justify-center">
-                <span className="text-[10px] bg-amber-950/80 text-amber-300 font-extrabold px-1.5 py-0.5 rounded-full select-none transform translate-y-3">
-                  🔥 Fireplace
+                <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-full select-none transform translate-y-3 shadow ${decor.fireplace.labelBg}`}>
+                  {decor.fireplace.emoji} {decor.fireplace.label}
                 </span>
               </div>
             </div>
@@ -544,7 +743,7 @@ export const CafeLounge = () => {
             {/* Barista Counter */}
             <div
               onClick={handleBaristaCounterClick}
-              className="absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center bg-amber-900/10 border-2 border-dashed border-amber-800/20 hover:bg-amber-900/20 rounded-lg"
+              className={`absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-all ${decor.barista.style}`}
               style={{
                 left: `${(OBJECTS.barista.x / 800) * 100}%`,
                 top: `${(OBJECTS.barista.y / 500) * 100}%`,
@@ -552,14 +751,16 @@ export const CafeLounge = () => {
                 height: `${(OBJECTS.barista.h / 500) * 100}%`
               }}
             >
-              <span className="text-3xl animate-bounce">☕</span>
-              <span className="text-[9px] bg-amber-950/80 text-amber-200 font-bold px-1.5 py-0.5 rounded-full">Barista</span>
+              <span className="text-3xl animate-bounce">{decor.barista.emoji}</span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 bg-white/90 shadow-sm border border-cream-200`}>
+                {decor.barista.label}
+              </span>
             </div>
 
             {/* Bookshelf */}
             <div
               onClick={handleBookshelfClick}
-              className="absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center bg-teal-900/10 border-2 border-dashed border-teal-800/20 hover:bg-teal-900/20 rounded-lg"
+              className={`absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-all ${decor.bookshelf.style}`}
               style={{
                 left: `${(OBJECTS.bookshelf.x / 800) * 100}%`,
                 top: `${(OBJECTS.bookshelf.y / 500) * 100}%`,
@@ -567,14 +768,16 @@ export const CafeLounge = () => {
                 height: `${(OBJECTS.bookshelf.h / 500) * 100}%`
               }}
             >
-              <span className="text-3xl">📚</span>
-              <span className="text-[9px] bg-teal-950/80 text-teal-200 font-bold px-1.5 py-0.5 rounded-full">Bookshelf</span>
+              <span className="text-3xl">{decor.bookshelf.emoji}</span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 bg-white/90 shadow-sm border border-cream-200`}>
+                {decor.bookshelf.label}
+              </span>
             </div>
 
             {/* Game Chess table */}
             <div
               onClick={() => handleSeatClick(OBJECTS.tableChess)}
-              className="absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center bg-neutral-900/10 border-2 border-dashed border-neutral-800/20 hover:bg-neutral-900/20 rounded-lg"
+              className={`absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-all ${decor.tableChess.style}`}
               style={{
                 left: `${(OBJECTS.tableChess.x / 800) * 100}%`,
                 top: `${(OBJECTS.tableChess.y / 500) * 100}%`,
@@ -582,14 +785,16 @@ export const CafeLounge = () => {
                 height: `${(OBJECTS.tableChess.h / 500) * 100}%`
               }}
             >
-              <span className="text-2xl animate-pulse">🏆</span>
-              <span className="text-[9px] bg-neutral-950/85 text-neutral-200 font-bold px-1.5 py-0.5 rounded-full mt-1">Chess Table</span>
+              <span className="text-2xl animate-pulse">{decor.tableChess.emoji}</span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full mt-1 bg-white/90 shadow-sm border border-cream-200`}>
+                {decor.tableChess.label}
+              </span>
             </div>
 
             {/* Game Whiteboard table */}
             <div
               onClick={() => handleSeatClick(OBJECTS.tableWhiteboard)}
-              className="absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center bg-neutral-900/10 border-2 border-dashed border-neutral-800/20 hover:bg-neutral-900/20 rounded-lg"
+              className={`absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-all ${decor.tableWhiteboard.style}`}
               style={{
                 left: `${(OBJECTS.tableWhiteboard.x / 800) * 100}%`,
                 top: `${(OBJECTS.tableWhiteboard.y / 500) * 100}%`,
@@ -597,14 +802,16 @@ export const CafeLounge = () => {
                 height: `${(OBJECTS.tableWhiteboard.h / 500) * 100}%`
               }}
             >
-              <span className="text-2xl">🎨</span>
-              <span className="text-[9px] bg-neutral-950/85 text-neutral-200 font-bold px-1.5 py-0.5 rounded-full mt-1">Drawing Board</span>
+              <span className="text-2xl">{decor.tableWhiteboard.emoji}</span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full mt-1 bg-white/90 shadow-sm border border-cream-200`}>
+                {decor.tableWhiteboard.label}
+              </span>
             </div>
 
             {/* Game TicTacToe table */}
             <div
               onClick={() => handleSeatClick(OBJECTS.tableTicTacToe)}
-              className="absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center bg-neutral-900/10 border-2 border-dashed border-neutral-800/20 hover:bg-neutral-900/20 rounded-lg"
+              className={`absolute pointer-events-auto cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-all ${decor.tableTicTacToe.style}`}
               style={{
                 left: `${(OBJECTS.tableTicTacToe.x / 800) * 100}%`,
                 top: `${(OBJECTS.tableTicTacToe.y / 500) * 100}%`,
@@ -612,8 +819,10 @@ export const CafeLounge = () => {
                 height: `${(OBJECTS.tableTicTacToe.h / 500) * 100}%`
               }}
             >
-              <span className="text-2xl">❌</span>
-              <span className="text-[9px] bg-neutral-950/85 text-neutral-200 font-bold px-1.5 py-0.5 rounded-full mt-1">TicTacToe</span>
+              <span className="text-2xl">{decor.tableTicTacToe.emoji}</span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full mt-1 bg-white/90 shadow-sm border border-cream-200`}>
+                {decor.tableTicTacToe.label}
+              </span>
             </div>
 
             {/* Sleeping Cat decorative spot */}
@@ -628,15 +837,15 @@ export const CafeLounge = () => {
                 left: `${((OBJECTS.fireplace.x + 85) / 800) * 100}%`,
                 top: `${((OBJECTS.fireplace.y + 42) / 500) * 100}%`
               }}
-              title="Click to pet Cozy Cat!"
+              title={`Click to pet ${decor.cat.label}!`}
             >
               <div className="flex flex-col items-center">
                 {catMood === 'purring' && (
                   <span className="text-[9px] font-bold text-amber-600 bg-white/80 border border-amber-200 py-0.5 px-1.5 rounded-full animate-bounce">
-                    Purr~ 💖
+                    {decor.cat.purr}
                   </span>
                 )}
-                <span className="text-xl">🐱</span>
+                <span className="text-xl">{decor.cat.emoji}</span>
               </div>
             </div>
 
@@ -803,19 +1012,23 @@ export const CafeLounge = () => {
           )}
 
           {activeOverlay === 'bookshelf' && (
-            <div className="glass-panel p-5 rounded-cozy border border-white/50 flex flex-col gap-4 bg-white/90 shadow-cozy text-left">
+            <div className="glass-panel p-5 rounded-cozy border border-white/50 flex flex-col gap-4 bg-white/90 shadow-cozy text-left animate-fadeIn">
               <div className="flex justify-between items-center pb-2 border-b border-cream-200">
-                <span className="text-lg">📚 Library Notebook</span>
+                <span className="text-base font-extrabold text-cozy-darkWood flex items-center gap-1.5">
+                  {decor.bookshelfOverlay.title}
+                </span>
                 <button
                   onClick={() => setActiveOverlay(null)}
-                  className="text-xs bg-cream-200 hover:bg-cream-300 py-1 px-3.5 rounded-lg border border-cream-300 font-bold"
+                  className="text-xs bg-cream-200 hover:bg-cream-300 py-1 px-3.5 rounded-lg border border-cream-300 font-extrabold text-cozy-darkWood transition-colors"
                 >
                   Close
                 </button>
               </div>
-              <p className="text-xs text-cozy-darkWood italic font-bold">"Today is a good day to rest, reflect, and enjoy a warm cup of coffee in Mochill."</p>
-              <div className="bg-cream-100 p-3 rounded-lg border border-cream-300/30 text-[10px] text-cozy-brown font-semibold leading-relaxed">
-                📘 Daily Affirmation: "You are doing incredible work. Remember to breathe and step away when needed. Your mental sanity is valuable!"
+              <p className="text-xs text-cozy-darkWood italic font-bold leading-relaxed">
+                {decor.bookshelfOverlay.quote}
+              </p>
+              <div className="bg-cream-100 p-3 rounded-lg border border-cream-300/30 text-[10px] text-cozy-brown font-bold leading-relaxed">
+                {decor.bookshelfOverlay.affirmation}
               </div>
             </div>
           )}
